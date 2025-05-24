@@ -1,0 +1,72 @@
+.container {
+  padding: 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 20px;
+
+}
+
+
+
+.righticon{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+@media (max-width: 599px) { /* Use 599px or 600px based on exact preference */
+  .righticon {
+    display: none; /* This hides the element */
+  }
+}
+
+.iconfont{
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.iconfont2{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  color: #4b5563
+}
+
+.middle{
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  color: #047857;
+}
+
+
+
+.btn {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #a7f3d0;
+  /* Add a default background and text color for a better base */
+  background-color: white;
+  color: #047857; /* Dark emerald text for contrast */
+  padding: 10px 20px;
+  padding-bottom: 10px;
+  margin-right: 4px;
+  border-radius: 5px; /* Slightly rounded corners */
+  cursor: pointer; /* Indicate it's clickable */
+  font-family: sans-serif; /* Basic font */
+  font-size: 1rem;
+  
+  min-width: 104px;
+  
+}
+
+.btn:hover {
+  background-color: #ecfdf5;
+}
