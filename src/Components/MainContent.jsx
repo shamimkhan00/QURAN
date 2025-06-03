@@ -3,7 +3,39 @@ import styles from './MainContent.module.css';
 
 
 
-export const MainContent = ({ currentVerseData }) => {
+export const MainContent = ({ currentVerseData , ayahNumber }) => {
+
+    // useEffect(() => {
+    //     const fetchVerse = async () => {
+    //         try {
+    //             const [arabicRes, englishRes] = await Promise.all([
+    //                 axios.get(`https://api.alquran.cloud/v1/ayah/${ayahNumber}/ar.asad`),
+    //                 axios.get(`https://api.alquran.cloud/v1/ayah/${ayahNumber}/en.asad`)
+    //             ]);
+
+    //             setCurrentVerseData({
+    //                 arabic: arabicRes.data.data.text,
+    //                 translation: englishRes.data.data.text
+    //             });
+
+    //             const surah = englishRes.data.data.surah;
+    //             setChapter({
+    //                 name: surah.englishName,
+    //                 no: surah.number,
+    //                 verse: englishRes.data.data.numberInSurah
+    //             });
+
+    //             // Automatically update input with current surah:verse
+    //             setInput(`${surah.number}:${englishRes.data.data.numberInSurah}`);
+
+    //         } catch (error) {
+    //             console.error("Error fetching verse:", error);
+    //         }
+    //     };
+
+    //     fetchVerse();
+    // }, [ayahNumber]);
+
     return (
         <main className={styles.container}>
             <div className={styles.contentWrapper}>

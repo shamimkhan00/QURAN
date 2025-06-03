@@ -13,7 +13,7 @@
 }
 
 .card {
-  padding: 2rem;
+  padding: 1rem;
   background-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(4px);
   border: 1px solid #d1fae5; /* emerald-100 */
@@ -32,7 +32,7 @@
 }
 
 .arabicText {
-  font-size: 1.875rem; /* 30px */
+  font-size: 3rem; /* 30px */
   line-height: 1.75;
   font-family: 'Scheherazade', serif; /* Replace with your Arabic font */
   color: #1f2937; /* gray-800 */
@@ -47,15 +47,15 @@
 }
 
 .translationBox {
-  background-color: rgba(236, 253, 245, 0.5); /* emerald-50/50 */
-  padding: 1.5rem;
+  background-color: rgba(236, 253, 245, 0.5); 
+  /* padding: 1.5rem; */
   border-radius: 0.5rem;
 }
 
 .translationText {
-  font-size: 1.125rem; /* 18px */
+  font-size: 1.1rem; /* 18px */
   line-height: 1.75;
   color: #374151; /* gray-700 */
-  text-align: center;
+  /* text-align: center; */
   font-style: italic;
 }
