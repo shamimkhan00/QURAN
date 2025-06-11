@@ -6,8 +6,8 @@ import { getAnalytics } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCRWrxyZm2OePcFTF_rSbwgxwfHcN6Jlyk",
-  authDomain: "quran-c4bc3.firebaseapp.com",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
   projectId: "quran-c4bc3",
   storageBucket: "quran-c4bc3.appspot.com",  // Fixed `.app` to `.appspot.com  storageBucket: "quran-c4bc3.appspot.com"`
   messagingSenderId: "550017202288",
