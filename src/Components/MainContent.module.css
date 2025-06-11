@@ -1,15 +1,26 @@
 .container {
-  padding: 2rem 1rem;
+  padding: 0rem 1rem;
   
   margin: 0;
   
   box-sizing: border-box;
   width: 100%;
+  
+  height: 100%;
+ 
 }
+
 
 .contentWrapper {
   max-width: 64rem;
   margin: 0 auto;
+}
+
+.topcontainer{
+  /* border: 2px solid red; */
+  display: flex;
+  justify-content: space-between;
+  padding-right: 15px;
 }
 
 .card {
@@ -19,6 +30,7 @@
   border: 1px solid #d1fae5; /* emerald-100 */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
+  
 }
 
 .verseBlock {
@@ -59,3 +71,64 @@
   /* text-align: center; */
   font-style: italic;
 }
+
+
+.profileName {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  max-width: 7.25rem;
+  min-width: 7.25rem;
+
+  overflow: hidden;
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.1rem;
+}
+
+.profileName span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  direction: ltr;         /* important */
+  text-align: right;
+  display: block;
+  width: 100%;
+}
+
+.settingscon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings{
+  /* padding: 0.5rem; */
+  font-size: 1.5rem;
+}
+
+
+/* between */
+
+.trans{
+  /* border: 2px solid red; */
+}
+
+.trans p{
+  position: relative;
+  left: 0.7rem;
+  top: 0.5rem;
+  z-index: 1;
+  width: fit-content;
+  background-color: rgb(188, 252, 241);
+  padding-left: 2px;
+  padding-right: 2px;
+  color: black;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+
+

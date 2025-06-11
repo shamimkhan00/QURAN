@@ -9,6 +9,10 @@
   cursor: pointer;
 }
 
+.hamburger:focus{
+   -webkit-tap-highlight-color: transparent;
+}
+
 .sidebar {
   position: fixed;
   top: 0;
@@ -31,15 +35,38 @@
   padding: 0;
 }
 
-.sidebar ul li {
-  padding: 15px 20px;
+.list{
   border-bottom: 1px solid #333;
+  padding: 15px 20px;
+  cursor: pointer;
 }
 
 .sidebar ul li a {
   color: white;
   text-decoration: none;
+  
 }
+
+.language{
+  
+  padding: 15px 20px;
+  background-color: transparent;
+  color: white;
+  
+  border: none;
+  border-bottom: 1px solid #333;
+
+  width: 95%;
+  /* border: 1px solid #ccc; */
+  /* font-size: 16px; */
+}
+
+.logout{
+  cursor: pointer;
+  border-bottom: 1px solid #333;
+  padding: 15px 20px;
+}
+
 
 .closeBtn {
   position: absolute;
@@ -52,6 +79,10 @@
   cursor: pointer;
 }
 
+.closeBtn:focus{
+  -webkit-tap-highlight-color: transparent;
+}
+
 .overlay {
   position: fixed;
   top: 0;
@@ -60,4 +91,14 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 999;
+}
+
+
+
+
+.droplist{
+  padding-left: 2rem;
+  overflow: hidden;
+  color: #aeaeae;
+  transition: color 0.2s, background-color 0.2s;
 }

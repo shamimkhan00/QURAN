@@ -1,3 +1,9 @@
+// scroll hide 
+// transition animation
+//
+
+
+
 import React, { useState } from 'react';
 import styles from './Sidebar.module.css';
 import { auth } from '../../firebase';
@@ -5,15 +11,15 @@ import { signOut } from 'firebase/auth/cordova';
 import { AnimatePresence, motion } from "framer-motion";
 
 
-const Sidebar = ({ setLanguage, setScript, isOpen, setIsOpen }) => {
+const Sidebar = ({ setLanguage , setScript , isOpen ,setIsOpen}) => {
 
-
+  
   const [showDropdown, setShowDropdown] = useState(false);
-  const [scriptdrop, setscriptdrop] = useState(false);
+  const [scriptdrop,setscriptdrop]=useState(false);
 
   const script1 = [
-    { name: "Indo-Pak", value: "indopak" },
-    { name: "Uthmani", value: "uthmani" },
+    {name: "Indo-Pak",value:"indopak"},
+    {name: "Uthmani",value:"uthmani"},
   ];
 
   const languages = [
@@ -39,8 +45,8 @@ const Sidebar = ({ setLanguage, setScript, isOpen, setIsOpen }) => {
     setLanguage(value);
     setShowDropdown(false);
     setIsOpen(false);
-
-
+  
+    
   }
 
   const handleScript = (value) => {
@@ -58,47 +64,28 @@ const Sidebar = ({ setLanguage, setScript, isOpen, setIsOpen }) => {
       <div className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
         <button className={styles.closeBtn} onClick={toggleSidebar}>×</button>
         <ul className={styles.listContainer}>
-          <li className={styles.list}><a href="/">Home</a></li>
-          <li className={styles.list} onClick={() => scriptdrop ? (setscriptdrop(false)) : (setscriptdrop(true))}>
+          <li className={styles.list}><a href="#">Home</a></li>
+          <li className={styles.list} onClick={()=> scriptdrop ? (setscriptdrop(false)):(setscriptdrop(true))}>
             Script
           </li>
-          <AnimatePresence>
-            {scriptdrop && (
-              <motion.ul
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                {script1.map((scr) => (
-                  <li className={`${styles.list} ${styles.droplist}`} key={scr.value} onClick={() => handleScript(scr.value)}>
-                    {scr.name}
-                  </li>
-                ))}
-              </motion.ul>
-            )}
-          </AnimatePresence>
-
+          {scriptdrop && (
+            script1.map((scr)=>(
+              <li className={styles.list} key={scr.value} onClick={()=> handleScript(scr.value)} >
+                {scr.name}
+              </li>
+            ))
+          )}
           <li className={styles.list} onClick={() => showDropdown ? (setShowDropdown(false)) : (setShowDropdown(true))}>
             Language
           </li>
-          <AnimatePresence>
-            {showDropdown && (
-              <motion.ul
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                {languages.map((lang) => (
-                  <li className={`${styles.list} ${styles.droplist}`} key={lang.value} onClick={() => handleLanguage(lang.value)}>
-                    {lang.name}
-                  </li>
-                ))}
-              </motion.ul>
-            )}
-          </AnimatePresence>
+          {showDropdown && (
 
+            languages.map((lang) => (
+              <li className={styles.list} key={lang.value} onClick={() => handleLanguage(lang.value)}>
+                {lang.name}
+              </li>
+            ))
+          )}
           <li onClick={handleLogout} className={styles.logout}>Logout</li>
         </ul>
       </div>

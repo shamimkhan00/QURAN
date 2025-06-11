@@ -1,0 +1,98 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.5rem;
+  background-color: transparent;
+  backdrop-filter: blur(4px);
+  width: 70%;
+  border-radius: 0.5rem;
+}
+
+.timelineContainer {
+  width: 100%;
+  
+}
+
+.playButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.playButton:hover {
+  background-color: #45a049;
+}
+
+.playButton:focus{
+   -webkit-tap-highlight-color: transparent;
+}
+
+.timeline {
+  width: 100%;
+  margin-bottom: 4px;
+  appearance: none;
+  height: 6px;
+  border-radius: 5px;
+  background: #888;
+  outline: none;
+}
+
+.timeline::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: #4caf50;
+  border-radius: 50%;
+  cursor: pointer;
+  
+}
+
+.timeline::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: #4caf50;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.timeDisplay {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #ccc;
+}
+
+/* Speed Control using native select and three dots icon */
+.speedControl {
+  position: relative;
+}
+
+.speedLabel {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 20px;
+
+}
+
+
+.speedSelect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
