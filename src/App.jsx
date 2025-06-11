@@ -135,7 +135,7 @@ function App() {
       const tasfirRes = await axios.get(`https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/${languageVal}/${surah}/${verse}.json`);
 
       //https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ben-abubakrzakaria/1/2.json
-      const transRes = language === 'english' ? await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quran-la1/${surah}/${verse}.json`) : await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ben-muhiuddinkhan-la/${surah}/${verse}.json`)
+      const transRes = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quran-la1/${surah}/${verse}.json`);
       // const transRes = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quran-la1/${surah}/${verse}.json`);
       
       setTrans(transRes.data.text);
