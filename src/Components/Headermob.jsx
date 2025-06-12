@@ -52,7 +52,7 @@ export const Headermob = ({
           <Sidebar setLanguage={setLanguage} setScript={setScript} isOpen={isOpen}
             setIsOpen={setIsOpen}></Sidebar>
           <div>
-            <div className={styles.iconfont}>AL-QURAN</div>
+            <div className={styles.iconfont}>PathToQuran</div>
             {/* <div className={styles.iconfont2}>Shamim Khan</div> */}
           </div>
         </div>
