@@ -3,10 +3,10 @@ import styles from './Sidebar.module.css';
 import { auth } from '../../firebase';
 import { signOut } from 'firebase/auth/cordova';
 import { AnimatePresence, motion } from "framer-motion";
-
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = ({ setLanguage, setScript, isOpen, setIsOpen }) => {
-
+  const navigate = useNavigate();
 
   const [showDropdown, setShowDropdown] = useState(false);
   const [scriptdrop, setscriptdrop] = useState(false);
@@ -47,6 +47,11 @@ const Sidebar = ({ setLanguage, setScript, isOpen, setIsOpen }) => {
     setScript(value);
     setscriptdrop(false);
     setIsOpen(false);
+  }
+
+  const handleAboutUs = () => {
+    setIsOpen(false)
+    navigate('/aboutus');
   }
 
   return (
@@ -98,7 +103,7 @@ const Sidebar = ({ setLanguage, setScript, isOpen, setIsOpen }) => {
               </motion.ul>
             )}
           </AnimatePresence>
-
+          <li onClick={handleAboutUs} className={styles.list}>About Us</li>
           <li onClick={handleLogout} className={styles.logout}>Logout</li>
         </ul>
       </div>

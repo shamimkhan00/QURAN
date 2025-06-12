@@ -8,17 +8,16 @@ import { MainContent } from './Components/MainContent';
 import verseCounts from './Components/Extra/verseCountsData';
 
 function App() {
-  // const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
   const [chapter, setChapter] = useState({ name: '', no: '', verse: '' });
   const [currentVerseData, setCurrentVerseData] = useState({ arabic: '', translation: '' });
   const [ayahNumber, setAyahNumber] = useState(1);
-  // const [scripts, setScript] = useState('indopak');
   const [tafsir, setTasfit] = useState('');
-  const [tafsirLoad, settafsirLoad] = useState(null);
   const [nextVerseData, setNextVerseData] = useState(null);
   const [trans,setTrans] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-
+  const [input, setInput] = useState(() => {
+    return localStorage.getItem('input') || '1:1';
+  });
   const [scripts, setScript] = useState(() => {
     const savedarabicScript = localStorage.getItem('arabicScript');
     return savedarabicScript || 'indopak';
@@ -40,9 +39,7 @@ function App() {
 
 
 
-  const [input, setInput] = useState(() => {
-    return localStorage.getItem('input') || '1:1';
-  });
+  
 
 
 
@@ -61,6 +58,9 @@ function App() {
         translation: nextVerseData.translation
       });
 
+      setTrans(nextVerseData.trans);
+      setTasfit(nextVerseData.tasfir);
+
       setChapter({
         name: nextVerseData.surahName,
         no: nextVerseData.surah,
@@ -70,8 +70,6 @@ function App() {
       const globalAyah = getGlobalVerseNumber(nextVerseData.surah, nextVerseData.verse);
       setAyahNumber(globalAyah);
       setInput(`${nextVerseData.surah}:${nextVerseData.verse}`);
-      getTafsirs(nextVerseData.surah, nextVerseData.verse);
-
       setNextVerseData(null); // clear to trigger re-prefetch in useEffect
     } else {
       // fallback if no preloaded data
@@ -95,7 +93,9 @@ function App() {
   };
 
 
-  const handleInputChange = (e) => setInput(e.target.value);
+  const handleInputChange = (e) => {
+    setInput(e.target.value)
+  };
 
   function getGlobalVerseNumber(surah, ayah) {
     if (surah < 1 || surah > 114 || ayah < 1 || ayah > verseCounts[surah]) {
@@ -126,29 +126,6 @@ function App() {
     return null; // should never reach here
   }
 
-  const getTafsirs = async (surah, verse) => {  //en-al-jalalayn  //bn-tafsir-ahsanul-bayaan
-    settafsirLoad(true);
-    try {
-      const languageVal = language === 'english' ? "en-al-jalalayn" : "bn-tafsir-ahsanul-bayaan"
-      console.log(`lan ${languageVal}`);
-
-      const tasfirRes = await axios.get(`https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/${languageVal}/${surah}/${verse}.json`);
-
-      //https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ben-abubakrzakaria/1/2.json
-      const transRes = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quran-la1/${surah}/${verse}.json`);
-      // const transRes = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quran-la1/${surah}/${verse}.json`);
-      
-      setTrans(transRes.data.text);
-      
-      setTasfit(tasfirRes.data.text);
-    } catch (err) {
-      console.error("Error fetching tafsir:", err);
-    } finally {
-      settafsirLoad(false);
-    }
-  }
-
-
 
   useEffect(() => {
     const timeout = setTimeout(async () => {
@@ -163,6 +140,12 @@ function App() {
         const res2 = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quranuthmanihaf/${surah}/${verse}.json`);
         const res3 = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quranindopak/${surah}/${verse}.json`);
         
+        // Fetch tasfir and transliteration
+        const languageVal = language === 'english' ? "en-al-jalalayn" : "bn-tafsir-ahsanul-bayaan"
+        const tasfirRes = await axios.get(`https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/${languageVal}/${surah}/${verse}.json`);
+        const transRes = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quran-la1/${surah}/${verse}.json`);
+        
+        
         setCurrentVerseData({
           arabic: scripts === 'indopak' ? res3.data.text : res2.data.text,
           translation: language === 'english' ? res.data.english : res.data.bengali
@@ -173,25 +156,30 @@ function App() {
           no: surah,
           verse: verse
         });
+
+        setTrans(transRes.data.text);
+        setTasfit(tasfirRes.data.text);
       
         setAyahNumber(getGlobalVerseNumber(surah, verse));
-        getTafsirs(surah, verse);
+       
 
         // 🧠 PREFETCH NEXT VERSE
         const nextVerseNum = getGlobalVerseNumber(surah, verse) + 1;
         const next = getSurahAndAyah(nextVerseNum);
         if (next) {
           const [nsurah, nverse] = [next.surah, next.ayah];
-          const [nres, nres2 , nres3] = await Promise.all([
+          const [nres, nres2 , nres3 , ntasfirRes , ntransRes] = await Promise.all([
             axios.get(`https://quranapi.pages.dev/api/${nsurah}/${nverse}.json`),
             axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quranuthmanihaf/${nsurah}/${nverse}.json`),
-            axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quranindopak/${nsurah}/${nverse}.json`)
+            axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quranindopak/${nsurah}/${nverse}.json`),
+            axios.get(`https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/${languageVal}/${nsurah}/${nverse}.json`),
+            axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quran-la1/${nsurah}/${nverse}.json`)
           ]);
           setNextVerseData({
-            
-            
             arabic: scripts === 'indopak' ? nres3.data.text : nres2.data.text,
             translation: language === 'english' ? nres.data.english : nres.data.bengali,
+            tasfir: ntasfirRes.data.text,
+            trans: ntransRes.data.text,
             surah: nsurah,
             verse: nverse,
             surahName: nres.data.surahName
@@ -241,7 +229,7 @@ function App() {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
       />
-      <MainContent currentVerseData={currentVerseData} ayahNumber={ayahNumber} surah={chapter.no} ayah={chapter.verse} onEnded={incrementCount} tafsir={tafsir} tafsirLoad={tafsirLoad} trans={trans} setIsOpen={setIsOpen}/>
+      <MainContent currentVerseData={currentVerseData} ayahNumber={ayahNumber} surah={chapter.no} ayah={chapter.verse} onEnded={incrementCount} tafsir={tafsir}  trans={trans} setIsOpen={setIsOpen}/>
     </div>
   );
 }

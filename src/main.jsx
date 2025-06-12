@@ -8,7 +8,7 @@ import './index.css';
 import App from './App.jsx';
 import SignIn from './Components/Extra/SignIn.jsx';
 import SignUp from './Components/Extra/Signup.jsx';
-import ScrollToTop from './Components/Extra/ScrollToTop.jsx';
+import AboutUs from './Components/Extra/AboutUs.jsx';
 
 if ('scrollRestoration' in window.history) {
   window.history.scrollRestoration = 'manual';
@@ -24,7 +24,10 @@ const router = createBrowserRouter([
   },{
     path: '/signup',
     element: <SignUp />,
-  },
+  },{
+    path: '/aboutus',
+    element: <AboutUs></AboutUs>
+  }
 ]);
 
 const root = createRoot(document.getElementById('root'));

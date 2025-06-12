@@ -7,6 +7,7 @@ import { ProfileName } from "./ProfileName.jsx";
 import styles from './Headermob.module.css';
 import { useEffect, useState } from "react";
 import { auth } from "../firebase.js";
+import { style } from "framer-motion/client";
 
 export const Headermob = ({
   chapter,
@@ -76,7 +77,7 @@ export const Headermob = ({
 
         <div className={styles.middle}>
 
-          <div>
+          <div className={styles.ayatName}>
             {chapter.name}
           </div>
 
@@ -84,7 +85,7 @@ export const Headermob = ({
 
             <input
               type="text"
-              placeholder="Enter verse"
+              placeholder="Enter"
               value={input}
               onChange={(e) => handleInputChange(e)}
               className={styles.input}

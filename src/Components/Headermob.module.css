@@ -125,9 +125,11 @@
 
 
 
-
-
-
-
+.ayatName{
+  max-width: 7rem;
+  min-width: 7rem;
+  white-space: nowrap;
+  overflow: visible;
+}
 
 
