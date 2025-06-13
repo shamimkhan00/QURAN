@@ -1,4 +1,3 @@
-import { GiOpenBook } from "react-icons/gi";
 import Sidebar from "./sidebar/Sidebar";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import SignIn from './Extra/SignIn.jsx';
@@ -7,26 +6,51 @@ import { ProfileName } from "./ProfileName.jsx";
 import styles from './Headermob.module.css';
 import { useEffect, useState } from "react";
 import { auth } from "../firebase.js";
-import { style } from "framer-motion/client";
+import surahName from '../Quran/surahName.json';
+import { FaSearch } from "react-icons/fa";
+import verseCounts from "./Extra/verseCountsData.js";
 
 export const Headermob = ({
-  chapter,
   incrementCount,
   decrementCount,
-  input,
-  handleInputChange,
   setLanguage,
   setScript,
   isOpen,
-  setIsOpen
+  setIsOpen,
+  surah,
+  verse,
+  setSurah,
+  setVerse
 }) => {
 
+  //useStates
   const [loading, setLoading] = useState(true);
   const [showUser, setShowUser] = useState(false);
+  const [inputSurah, setInputSurah] = useState('Enter');
+  const [inputVerse, setInputVerse] = useState('Verse');
 
+
+  //functions
+  const handleSurahVerse = () => {
+    const surahNum = parseInt(inputSurah);
+    const verseNum = parseInt(inputVerse);
+
+    if (surahNum >= 1 && surahNum <= 114) {
+      const maxVerse = verseCounts[surahNum.toString()];
+      if (verseNum >= 1 && verseNum <= maxVerse) {
+        setSurah(surahNum);
+        setVerse(verseNum);
+      } else {
+        alert(`❌ Verse must be between 1 and ${maxVerse} for Surah ${surahNum}`);
+      }
+    } else {
+      alert("❌ Surah must be between 1 and 114");
+    }
+  };
+
+  //useEffects
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      console.log(user);
 
       if (user) {
         setShowUser(true)
@@ -37,8 +61,10 @@ export const Headermob = ({
     })
   });
 
-
-
+  useEffect(() => {
+    setInputSurah(surah);
+    setInputVerse(verse);
+  }, [surah, verse]);
 
 
 
@@ -78,18 +104,28 @@ export const Headermob = ({
         <div className={styles.middle}>
 
           <div className={styles.ayatName}>
-            {chapter.name}
+            {surahName[parseInt(surah) - 1]}
           </div>
 
-          <div className={styles.inputWrapper}>
+          <div className={styles.inputbtnsearch}>
+            <div className={styles.inputWrapper}>
 
-            <input
-              type="text"
-              placeholder="Enter"
-              value={input}
-              onChange={(e) => handleInputChange(e)}
-              className={styles.input}
-            />
+              <input
+                type="number"
+                placeholder="surah"
+                value={inputSurah}
+                onChange={(e) => setInputSurah(e.target.value)}
+                className={styles.input}
+              />:
+              <input
+                type="number"
+                placeholder="verse"
+                value={inputVerse}
+                onChange={(e) => setInputVerse(e.target.value)}
+                className={styles.input}
+              />
+            </div>
+            <button onClick={handleSurahVerse} className={styles.searchBtn}><FaSearch /></button>
           </div>
 
           <div className={styles.btncontainer}>

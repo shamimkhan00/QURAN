@@ -6,18 +6,41 @@ import { Header } from './Components/Header';
 import { Headermob } from './Components/Headermob';
 import { MainContent } from './Components/MainContent';
 import verseCounts from './Components/Extra/verseCountsData';
+import { Helmet } from 'react-helmet-async';
 
+//Scripts
+import IndoPak from './Quran/IndoPak.json';
+import Uthmani from './Quran/Uthmani.json';
+import English from './Quran/English.json';
+import bn from './Quran/bn.json';
+import EnTrans from './Quran/EnTrans.json';
+import tasfirEN from './Quran/tasfirEN.json';
+import tasfirBN from './Quran/tasfirBN.json';
 function App() {
-  const [chapter, setChapter] = useState({ name: '', no: '', verse: '' });
-  const [currentVerseData, setCurrentVerseData] = useState({ arabic: '', translation: '' });
-  const [ayahNumber, setAyahNumber] = useState(1);
-  const [tafsir, setTasfit] = useState('');
-  const [nextVerseData, setNextVerseData] = useState(null);
-  const [trans,setTrans] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
-  const [input, setInput] = useState(() => {
-    return localStorage.getItem('input') || '1:1';
+
+
+  //useState
+  const [surah, setSurah] = useState(() => {
+    const savedSurah = localStorage.getItem('surah');
+    return savedSurah !== null ? parseInt(savedSurah) : 1;
   });
+
+  const [verse, setVerse] = useState(() => {
+    const savedVerse = localStorage.getItem('verse');
+    return savedVerse !== null ? parseInt(savedVerse) : 1;
+  });
+
+  // Update localStorage whenever surah or verse changes
+  useEffect(() => {
+    localStorage.setItem('surah', surah.toString());
+    localStorage.setItem('verse', verse.toString());
+  }, [surah, verse]);
+
+
+
+  const [currentVerseData, setCurrentVerseData] = useState({ arabic: '', translation: '', trans: '', tafsir: '' });
+  const [isOpen, setIsOpen] = useState(false);
+
   const [scripts, setScript] = useState(() => {
     const savedarabicScript = localStorage.getItem('arabicScript');
     return savedarabicScript || 'indopak';
@@ -26,7 +49,7 @@ function App() {
   useEffect(() => {
     localStorage.setItem('arabicScript', scripts);
   }, [scripts]);
-  
+
 
   const [language, setLanguage] = useState(() => {
     const savedLanguage = localStorage.getItem('appLanguage');
@@ -39,168 +62,109 @@ function App() {
 
 
 
-  
 
 
 
-  useEffect(() => {
-    localStorage.setItem('input', input);
-  }, [input]);
 
-
+  console.log(surah, verse);
 
 
   const incrementCount = () => {
-    if (nextVerseData) {
-      // Use preloaded data for instant update
-      setCurrentVerseData({
-        arabic: nextVerseData.arabic,
-        translation: nextVerseData.translation
-      });
+    const verseLimit = verseCounts[surah];
 
-      setTrans(nextVerseData.trans);
-      setTasfit(nextVerseData.tasfir);
+    const currentSurah = parseInt(surah);
+    const currentVerse = parseInt(verse);
 
-      setChapter({
-        name: nextVerseData.surahName,
-        no: nextVerseData.surah,
-        verse: nextVerseData.verse
-      });
-
-      const globalAyah = getGlobalVerseNumber(nextVerseData.surah, nextVerseData.verse);
-      setAyahNumber(globalAyah);
-      setInput(`${nextVerseData.surah}:${nextVerseData.verse}`);
-      setNextVerseData(null); // clear to trigger re-prefetch in useEffect
-    } else {
-      // fallback if no preloaded data
-      setAyahNumber(prev => {
-        const newVal = Math.min(prev + 1, 6236);
-        const { surah, ayah } = getSurahAndAyah(newVal);
-        setInput(`${surah}:${ayah}`);
-        return newVal;
-      });
+    if (currentSurah > 0 && currentSurah <= 114) {
+      if (currentVerse < verseLimit) {
+        setVerse(currentVerse + 1);
+      } else if (currentSurah < 114) {
+        setSurah(currentSurah + 1);
+        setVerse(1);
+      }
     }
   };
 
 
   const decrementCount = () => {
-    setAyahNumber(prev => {
-      const newVal = Math.max(prev - 1, 1);
-      const { surah, ayah } = getSurahAndAyah(newVal);
-      setInput(`${surah}:${ayah}`);
-      return newVal;
-    });
-  };
+    const currentSurah = parseInt(surah);
+    const currentVerse = parseInt(verse);
 
-
-  const handleInputChange = (e) => {
-    setInput(e.target.value)
-  };
-
-  function getGlobalVerseNumber(surah, ayah) {
-    if (surah < 1 || surah > 114 || ayah < 1 || ayah > verseCounts[surah]) {
-      return null; // invalid input
-    }
-
-    // Sum all verses before the current Surah
-    const verseOffset = verseCounts.slice(1, surah).reduce((a, b) => a + b, 0);
-
-    return verseOffset + ayah;
-  }
-
-
-  function getSurahAndAyah(globalVerseNumber) {
-    if (globalVerseNumber < 1 || globalVerseNumber > 6236) return null;
-
-    let verseCount = 0;
-
-    for (let surah = 1; surah < verseCounts.length; surah++) {
-      const nextCount = verseCount + verseCounts[surah];
-      if (globalVerseNumber <= nextCount) {
-        const ayah = globalVerseNumber - verseCount;
-        return { surah, ayah };
+    if (currentSurah > 0 && currentSurah <= 114) {
+      if (currentVerse > 1) {
+        setVerse(currentVerse - 1);
+      } else if (currentSurah > 1) {
+        const previousSurah = currentSurah - 1;
+        const lastVerseOfPreviousSurah = verseCounts[previousSurah];
+        setSurah(previousSurah);
+        setVerse(lastVerseOfPreviousSurah);
       }
-      verseCount = nextCount;
     }
+  };
 
-    return null; // should never reach here
-  }
 
 
   useEffect(() => {
-    const timeout = setTimeout(async () => {
-      const [surahStr, verseStr] = input.split(":");
-      const surah = parseInt(surahStr);
-      const verse = parseInt(verseStr);
-      if (!surah || !verse) return;
+    const data = scripts === "indopak" ? IndoPak : Uthmani;
+    const transliterationEn = EnTrans[surah][verse] || "Verse Not Found";
+    const translations =
+      language === "english"
+        ? English[surah]?.[verse] || "Verse Not Found"
+        : bn[surah]?.[parseInt(verse) - 1]?.text || "Verse Not Found";
+    const verseText = data[surah]?.[verse] || "Verse Not Found";
 
-      try {
-        // Fetch current verse
-        const res = await axios.get(`https://quranapi.pages.dev/api/${surah}/${verse}.json`);
-        const res2 = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quranuthmanihaf/${surah}/${verse}.json`);
-        const res3 = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quranindopak/${surah}/${verse}.json`);
-        
-        // Fetch tasfir and transliteration
-        const languageVal = language === 'english' ? "en-al-jalalayn" : "bn-tafsir-ahsanul-bayaan"
-        const tasfirRes = await axios.get(`https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/${languageVal}/${surah}/${verse}.json`);
-        const transRes = await axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quran-la1/${surah}/${verse}.json`);
-        
-        
-        setCurrentVerseData({
-          arabic: scripts === 'indopak' ? res3.data.text : res2.data.text,
-          translation: language === 'english' ? res.data.english : res.data.bengali
-        });
 
-        setChapter({
-          name: res.data.surahName,
-          no: surah,
-          verse: verse
-        });
+    let tafsirText = "";
+    const ayahKey = `${surah}:${verse}`;
 
-        setTrans(transRes.data.text);
-        setTasfit(tasfirRes.data.text);
-      
-        setAyahNumber(getGlobalVerseNumber(surah, verse));
-       
-
-        // 🧠 PREFETCH NEXT VERSE
-        const nextVerseNum = getGlobalVerseNumber(surah, verse) + 1;
-        const next = getSurahAndAyah(nextVerseNum);
-        if (next) {
-          const [nsurah, nverse] = [next.surah, next.ayah];
-          const [nres, nres2 , nres3 , ntasfirRes , ntransRes] = await Promise.all([
-            axios.get(`https://quranapi.pages.dev/api/${nsurah}/${nverse}.json`),
-            axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quranuthmanihaf/${nsurah}/${nverse}.json`),
-            axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quranindopak/${nsurah}/${nverse}.json`),
-            axios.get(`https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/${languageVal}/${nsurah}/${nverse}.json`),
-            axios.get(`https://cdn.jsdelivr.net/gh/fawazahmed0/quran-api@1/editions/ara-quran-la1/${nsurah}/${nverse}.json`)
-          ]);
-          setNextVerseData({
-            arabic: scripts === 'indopak' ? nres3.data.text : nres2.data.text,
-            translation: language === 'english' ? nres.data.english : nres.data.bengali,
-            tasfir: ntasfirRes.data.text,
-            trans: ntransRes.data.text,
-            surah: nsurah,
-            verse: nverse,
-            surahName: nres.data.surahName
-          });
+    if (language === "english") {
+      const tafsirEntry = tasfirEN[ayahKey];
+      if (tafsirEntry) {
+        if (typeof tafsirEntry === "string") {
+          // it's a reference to another key
+          tafsirText = tasfirEN[tafsirEntry]?.text || "";
+        } else {
+          tafsirText = tafsirEntry.text || "";
         }
-
-      } catch (error) {
-        console.error("Error resolving ayah:", error);
       }
-    }, 100);
+    } else {
+      // Bengali tafsir — nested structure like tasfirBN["2"]["8"]
+      tafsirText = tasfirBN[`${surah}:${verse}`]?.text || "";
+    }
 
-    return () => clearTimeout(timeout);
-  }, [input, language,scripts]);
+
+    setCurrentVerseData({
+      arabic: verseText,
+      translation: translations,
+      trans: transliterationEn,
+      tafsir: tafsirText
+    });
+  }, [surah, verse, scripts, language]);
+
+
+
+
 
 
 
 
 
   return (
-    <div>
-      {/* {isMobile ? (
+    <>
+      <Helmet>
+        <title>PathToQuran - Read/Learn the Quran Online</title>
+        <meta name="description" content="PathToQuran is a simple, Quran web app with tafsir, translation, and audio. Learn, listen, and reflect on the Quran." />
+        <link rel="canonical" href="https://path-to-quran.com/" />
+
+
+        <meta property="og:title" content="PathToQuran - Learn/Read the Quran Online" />
+        <meta property="og:description" content="Simple, Quran web app with tafsir, translation, and audio." />
+        <meta property="og:url" content="https://path-to-quran.com/" />
+        <meta property="og:type" content="website" />
+
+      </Helmet>
+      <div>
+        {/* {isMobile ? (
         <Headermob
           chapter={chapter}
           incrementCount={incrementCount}
@@ -217,20 +181,25 @@ function App() {
           handleInputChange={handleInputChange}
         />
       )} */}
-      <Headermob
-        chapter={chapter}
-        incrementCount={incrementCount}
-        decrementCount={decrementCount}
-        input={input}
-        handleInputChange={handleInputChange}
-        language={language}
-        setLanguage={setLanguage}
-        setScript={setScript}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-      />
-      <MainContent currentVerseData={currentVerseData} ayahNumber={ayahNumber} surah={chapter.no} ayah={chapter.verse} onEnded={incrementCount} tafsir={tafsir}  trans={trans} setIsOpen={setIsOpen}/>
-    </div>
+        <Headermob
+
+          incrementCount={incrementCount}
+          decrementCount={decrementCount}
+          language={language}
+          setLanguage={setLanguage}
+          setScript={setScript}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+
+
+          surah={surah}
+          verse={verse}
+          setSurah={setSurah}
+          setVerse={setVerse}
+        />
+        <MainContent currentVerseData={currentVerseData} surah={surah} verse={verse} onEnded={incrementCount} setIsOpen={setIsOpen} />
+      </div>
+    </>
   );
 }
 

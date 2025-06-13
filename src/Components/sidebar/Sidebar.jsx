@@ -54,6 +54,10 @@ const Sidebar = ({ setLanguage, setScript, isOpen, setIsOpen }) => {
     navigate('/aboutus');
   }
 
+  const handleFeedback = () =>{
+    window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSc_WNXwbOfTwykZZakYStpfU-m6hwnTYn8O9QxwmfeXRTiwog/viewform?usp=header";
+  }
+
   return (
     <>
       <button className={styles.hamburger} onClick={toggleSidebar}>
@@ -104,6 +108,7 @@ const Sidebar = ({ setLanguage, setScript, isOpen, setIsOpen }) => {
             )}
           </AnimatePresence>
           <li onClick={handleAboutUs} className={styles.list}>About Us</li>
+          <li onClick={handleFeedback} className={styles.list}>Feedback</li>
           <li onClick={handleLogout} className={styles.logout}>Logout</li>
         </ul>
       </div>
@@ -114,4 +119,6 @@ const Sidebar = ({ setLanguage, setScript, isOpen, setIsOpen }) => {
 };
 
 export default Sidebar;
+
+// https://docs.google.com/forms/d/e/1FAIpQLSc_WNXwbOfTwykZZakYStpfU-m6hwnTYn8O9QxwmfeXRTiwog/viewform?usp=header
 

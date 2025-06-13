@@ -1,0 +1,6 @@
+npm install react-helmet-async --legacy-peer-deps 
+
+
+A favicon
+og:image (for a preview image when shared)
+twitter:card meta tags

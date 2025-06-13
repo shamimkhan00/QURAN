@@ -3,16 +3,16 @@ import styles from './MainContent.module.css';
 import VerseAudio from './VerseAudio';
 import { IoSettings } from "react-icons/io5";
 
+export const MainContent = ({ currentVerseData, surah,verse , onEnded, setIsOpen }) => {
+    // console.log(currentVerseData);
 
-export const MainContent = ({ currentVerseData, surah, ayah, onEnded, tafsir, trans, setIsOpen }) => {
-
-
+    
     return (
         <main className={styles.container}>
             <div className={styles.contentWrapper}>
                 <div className={styles.topcontainer}>
 
-                    <VerseAudio surah={surah} ayah={ayah} onEnded={onEnded}></VerseAudio>
+                    <VerseAudio surah={surah} ayah={verse} onEnded={onEnded}></VerseAudio>
                     <div className={styles.settingscon}>
                         <IoSettings className={styles.settings} onClick={() => { setIsOpen(true) }} />
                     </div>
@@ -32,7 +32,7 @@ export const MainContent = ({ currentVerseData, surah, ayah, onEnded, tafsir, tr
                             {/* Translation */}
                             <div className={styles.translationBox}>
                                 <p className={styles.translationText}>
-                                    "{currentVerseData.translation}"
+                                    {currentVerseData.translation}
                                 </p>
                             </div>
                         </div>
@@ -49,7 +49,7 @@ export const MainContent = ({ currentVerseData, surah, ayah, onEnded, tafsir, tr
                             {/* Translation */}
                             <div className={styles.translationBox}>
                                 <p className={styles.translationText}>
-                                    {trans}
+                                    {currentVerseData.trans}
                                 </p>
                             </div>
                         </div>
@@ -65,9 +65,10 @@ export const MainContent = ({ currentVerseData, surah, ayah, onEnded, tafsir, tr
                         <div className={styles.verseBlock}>
                             {/* Translation */}
                             <div className={styles.translationBox}>
-                                <p className={styles.translationText}>
-                                    {tafsir}
-                                </p>
+                                <span className={styles.translationText}>
+                                    {/* {currentVerseData.tafsir} */}
+                                    <div dangerouslySetInnerHTML={{ __html: currentVerseData?.tafsir }} />
+                                </span>
                             </div>
                         </div>
                     ) : (

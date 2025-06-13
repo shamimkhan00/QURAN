@@ -44,7 +44,7 @@
 }
 
 .arabicText {
-  font-size: 3rem; /* 30px */
+  font-size: 2.5rem; /* 30px */
   line-height: 1.75;
   font-family: 'Scheherazade', serif; /* Replace with your Arabic font */
   color: #1f2937; /* gray-800 */

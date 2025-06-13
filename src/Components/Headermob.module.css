@@ -63,13 +63,13 @@
   align-items: center;
   border: 2px solid #047857;
   border-radius: 8px;
-  padding: 4px 8px;
+  padding: 2px;
   background-color: #ffffff;
 }
 
 .input {
-  width: 5ch; 
-  min-width: 4ch;
+  width: 2.2rem; 
+  /* min-width: 4ch; */
   font-size: 1.25rem;
   font-weight: 600;
   color: #047857;
@@ -80,12 +80,24 @@
   
   touch-action: manipulation; 
   caret-color: #047857; 
+
+  -moz-appearance: textfield;
 }
 
 
 .input:focus {
   background-color: #f0fdfa; /* subtle highlight on focus */
   border-bottom: 2px solid #047857;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input::placeholder {
+  font-size: 12px;
 }
 
 
@@ -126,10 +138,35 @@
 
 
 .ayatName{
-  max-width: 7rem;
-  min-width: 7rem;
+  max-width: 5rem;
+  min-width: 5rem;
+  font-size: 1.1rem;
   white-space: nowrap;
   overflow: visible;
 }
 
+.searchBtn {
+  background-color: #047857; /* Dodger Blue */
+  color: white;
+  border: none;
+  padding: 0px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
 
+
+
+.searchBtn:active {
+  transform: scale(0.95);
+}
+
+
+.inputbtnsearch{
+  display: flex;
+  gap: 10px;
+}
