@@ -66,7 +66,7 @@ function App() {
 
 
 
-  console.log(surah, verse);
+  
 
 
   const incrementCount = () => {
@@ -113,33 +113,38 @@ function App() {
         : bn[surah]?.[parseInt(verse) - 1]?.text || "Verse Not Found";
     const verseText = data[surah]?.[verse] || "Verse Not Found";
 
-
-    let tafsirText = "";
-    const ayahKey = `${surah}:${verse}`;
-
-    if (language === "english") {
-      const tafsirEntry = tasfirEN[ayahKey];
-      if (tafsirEntry) {
-        if (typeof tafsirEntry === "string") {
-          // it's a reference to another key
-          tafsirText = tasfirEN[tafsirEntry]?.text || "";
+    // Start lazy-load
+    const fetchTafsir = async () => {
+      let tafsirText = "";
+      const ayahKey = `${surah}:${verse}`;
+      try {
+        if (language === "english") {
+          const tasfirEN = await import('./Quran/tasfirEN.json');
+          const tafsirEntry = tasfirEN.default[ayahKey];
+          if (typeof tafsirEntry === "string") {
+            tafsirText = tasfirEN.default[tafsirEntry]?.text || "";
+          } else {
+            tafsirText = tafsirEntry?.text || "";
+          }
         } else {
-          tafsirText = tafsirEntry.text || "";
+          const tasfirBN = await import('./Quran/tasfirBN.json');
+          tafsirText = tasfirBN.default[ayahKey]?.text || "";
         }
+      } catch (e) {
+        tafsirText = "Tafsir could not be loaded.";
       }
-    } else {
-      // Bengali tafsir — nested structure like tasfirBN["2"]["8"]
-      tafsirText = tasfirBN[`${surah}:${verse}`]?.text || "";
-    }
 
+      setCurrentVerseData({
+        arabic: verseText,
+        translation: translations,
+        trans: transliterationEn,
+        tafsir: tafsirText
+      });
+    };
 
-    setCurrentVerseData({
-      arabic: verseText,
-      translation: translations,
-      trans: transliterationEn,
-      tafsir: tafsirText
-    });
+    fetchTafsir();
   }, [surah, verse, scripts, language]);
+
 
 
 
