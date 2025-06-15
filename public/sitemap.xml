@@ -7,19 +7,20 @@
   <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
   <url>
-    <loc>https://www.path-to-quran.com/</loc>
+    <loc>https://path-to-quran.com/</loc>
     <lastmod>2025-06-14T08:30:13+00:00</lastmod>
   </url>
 
   <url>
-    <loc>https://www.path-to-quran.com/articles/learn-quran</loc>
+    <loc>https://path-to-quran.com/articles/learn-quran</loc>
+    <lastmod>2025-06-15</lastmod>
+ </url>
+
+ <url>
+    <loc>https://path-to-quran.com/articles/read-quran</loc>
     <lastmod>2025-06-15</lastmod>
   </url>
 
-  <url>
-    <loc>https://www.path-to-quran.com/articles/read-quran</loc>
-    <lastmod>2025-06-15</lastmod>
-  </url>
 
 
 </urlset>
