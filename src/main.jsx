@@ -10,6 +10,8 @@ import SignIn from './Components/Extra/SignIn.jsx';
 import SignUp from './Components/Extra/Signup.jsx';
 import AboutUs from './Components/Extra/AboutUs.jsx';
 import { HelmetProvider } from 'react-helmet-async';
+import LearnQuranArticle from './pages/articles/learn-quran.jsx';
+import ReadQuranArticle from './pages/articles/read-quran.jsx';
 
 if ('scrollRestoration' in window.history) {
   window.history.scrollRestoration = 'manual';
@@ -23,6 +25,14 @@ const router = createBrowserRouter([
   {
     path: '/aboutus',
     element: <AboutUs></AboutUs>
+  },
+  {
+    path: '/articles/learn-quran',
+    element: <LearnQuranArticle></LearnQuranArticle>
+  },
+  {
+    path: '/articles/read-quran',
+    element: <ReadQuranArticle></ReadQuranArticle>
   }
 ]);
 

@@ -169,7 +169,9 @@ function App() {
         <meta property="og:description" content="Simple, Quran web app with tafsir, translation, and audio." />
         <meta property="og:url" content="https://path-to-quran.com/" />
         <meta property="og:type" content="website" />
-
+        <link rel="alternate" href="https://www.path-to-quran.com/articles/learn-quran" />
+        <link rel="alternate" href="https://www.path-to-quran.com/articles/read-quran" />
+        
       </Helmet>
       <div>
         {/* {isMobile ? (
