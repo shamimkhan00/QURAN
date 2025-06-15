@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
 
@@ -12,7 +13,8 @@
   <!-- ✅ Primary Meta Tags -->
   <title>PathToQuran - Read/Learn the Quran Online</title>
   <meta name="title" content="PathToQuran - Read/Learn & listen the Quran" />
-  <meta name="description" content="PathToQuran is a simple, ad-free Quran web app with tafsir, translation, and audio. Learn, listen, and reflect on the Quran." />
+  <meta name="description"
+    content="PathToQuran is a simple, ad-free Quran web app with tafsir, translation, and audio. Learn, listen, and reflect on the Quran." />
 
   <!-- ✅ Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
@@ -21,18 +23,32 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://path-to-quran.com/" />
   <meta property="og:title" content="PathToQuran - Read/Learn & listen the Quran Online" />
-  <meta property="og:description" content="A peaceful Quran experience with tafsir, translations, and recitation audio. Open to all." />
+  <meta property="og:description"
+    content="A peaceful Quran experience with tafsir, translations, and recitation audio. Open to all." />
   <meta property="og:image" content="https://path-to-quran.com/webLogo.png" />
 
   <!-- ✅ Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://path-to-quran.com/" />
   <meta property="twitter:title" content="PathToQuran - Read/Learn & listen the Quran Online" />
-  <meta property="twitter:description" content="A peaceful Quran experience with tafsir, translations, and recitation audio. Open to all." />
+  <meta property="twitter:description"
+    content="A peaceful Quran experience with tafsir, translations, and recitation audio. Open to all." />
   <meta property="twitter:image" content="https://path-to-quran.com/webLogo.png" />
 </head>
+
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <noscript>
+      <section id="ssr-preview" style="font-family: Roboto, sans-serif; padding: 1rem;">
+        <h1>Surah Al-Fatiha</h1>
+        <p><strong>1.</strong> بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ</p>
+        <p><strong>Translation:</strong> In the name of Allah, the Most Gracious, the Most Merciful.</p>
+      </section>
+    </noscript>
+  </div>
+
+  <!-- ✅ Your React app will replace #root -->
   <script type="module" src="/src/main.jsx"></script>
 </body>
+
 </html>

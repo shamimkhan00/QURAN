@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
-import axios from 'axios';
 import './App.css';
 import { Header } from './Components/Header';
 import { Headermob } from './Components/Headermob';
@@ -14,8 +12,7 @@ import Uthmani from './Quran/Uthmani.json';
 import English from './Quran/English.json';
 import bn from './Quran/bn.json';
 import EnTrans from './Quran/EnTrans.json';
-import tasfirEN from './Quran/tasfirEN.json';
-import tasfirBN from './Quran/tasfirBN.json';
+
 function App() {
 
 
@@ -60,13 +57,19 @@ function App() {
     localStorage.setItem('appLanguage', language);
   }, [language]);
 
+  useEffect(() => {
+    const ssrPreview = document.getElementById('ssr-preview');
+    if (ssrPreview) ssrPreview.remove();
+  }, []);
 
 
 
 
 
 
-  
+
+
+
 
 
   const incrementCount = () => {
