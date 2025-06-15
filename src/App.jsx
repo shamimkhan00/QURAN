@@ -5,6 +5,7 @@ import { Headermob } from './Components/Headermob';
 import { MainContent } from './Components/MainContent';
 import verseCounts from './Components/Extra/verseCountsData';
 import { Helmet } from 'react-helmet-async';
+import { Footer } from './Components/Extra/Footer';
 
 //Scripts
 import IndoPak from './Quran/IndoPak.json';
@@ -209,6 +210,7 @@ function App() {
         />
         <MainContent currentVerseData={currentVerseData} surah={surah} verse={verse} onEnded={incrementCount} setIsOpen={setIsOpen} />
       </div>
+      <Footer></Footer>
     </>
   );
 }

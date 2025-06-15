@@ -12,6 +12,8 @@ import AboutUs from './Components/Extra/AboutUs.jsx';
 import { HelmetProvider } from 'react-helmet-async';
 import LearnQuranArticle from './pages/articles/learn-quran.jsx';
 import ReadQuranArticle from './pages/articles/read-quran.jsx';
+import PrivacyPolicy from './pages/articles/privacy-policy.jsx';
+import Terms from './pages/articles/terms.jsx';
 
 if ('scrollRestoration' in window.history) {
   window.history.scrollRestoration = 'manual';
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
   {
     path: '/articles/read-quran',
     element: <ReadQuranArticle></ReadQuranArticle>
+  },
+  {
+    path: '/privacy-policy',
+    element: <PrivacyPolicy></PrivacyPolicy>
+  },
+  {
+    path: '/terms',
+    element: <Terms></Terms>
   }
 ]);
 

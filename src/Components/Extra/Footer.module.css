@@ -1,0 +1,22 @@
+.legalLinks {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.875rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.link {
+  color: #4b6cb7;
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.separator {
+  margin: 0 0.5rem;
+  color: #aaa;
+}

@@ -4,6 +4,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
   <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
   <url>
@@ -14,13 +15,27 @@
   <url>
     <loc>https://path-to-quran.com/articles/learn-quran</loc>
     <lastmod>2025-06-15</lastmod>
- </url>
+  </url>
 
- <url>
+  <url>
     <loc>https://path-to-quran.com/articles/read-quran</loc>
     <lastmod>2025-06-15</lastmod>
   </url>
 
+  <url>
+    <loc>https://path-to-quran.com/privacy-policy</loc>
+    <lastmod>2025-06-15</lastmod>
+  </url>
 
+  <url>
+    <loc>https://path-to-quran.com/terms</loc>
+    <lastmod>2025-06-15</lastmod>
+  </url>
+
+  <url>
+    <loc>https://path-to-quran.com/aboutus</loc>
+    <lastmod>2025-06-15</lastmod>
+  </url>
 
 </urlset>
+
