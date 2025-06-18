@@ -74,7 +74,7 @@ export const Headermob = ({
 
   return (
     <>
-      <div className={styles.container}>
+      <div className={`${styles.container} ${isDarkMode ? styles.firstdark : styles.firstlight}`}>
 
 
         <div className={styles.righticon}>
@@ -103,9 +103,9 @@ export const Headermob = ({
 
       </div>
 
-      <div className={`${styles.container} ${styles.secondTopbar}`}>
+      <div className={`${styles.container} ${styles.secondTopbar} ${isDarkMode ? styles.seconddark : styles.secondlight}`}>
 
-        <div className={styles.middle}>
+        <div className={`${styles.middle} ${isDarkMode ? styles.middleDark : styles.middleLight}`}>
 
           <div className={styles.ayatName}>
             {surahName[parseInt(surah) - 1]}
