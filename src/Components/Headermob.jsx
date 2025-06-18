@@ -20,7 +20,11 @@ export const Headermob = ({
   surah,
   verse,
   setSurah,
-  setVerse
+  setVerse,
+
+  isDarkMode,
+  setIsDarkMode
+  
 }) => {
 
   //useStates
@@ -76,7 +80,7 @@ export const Headermob = ({
         <div className={styles.righticon}>
           {/* <div><GiOpenBook size="2rem" /></div> */}
           <Sidebar setLanguage={setLanguage} setScript={setScript} isOpen={isOpen}
-            setIsOpen={setIsOpen}></Sidebar>
+            setIsOpen={setIsOpen} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}></Sidebar>
           <div>
             <div className={styles.iconfont}>PathToQuran</div>
             {/* <div className={styles.iconfont2}>Shamim Khan</div> */}

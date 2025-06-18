@@ -25,13 +25,22 @@
 
 .card {
   padding: 1rem;
-  background-color: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(4px);
+  /* background-color: rgba(255, 255, 255, 0.7); */
+  /* backdrop-filter: blur(4px); */
   border: 1px solid #d1fae5; /* emerald-100 */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
   
 }
+
+.CarddarkMode{
+  background-color: black;
+}
+
+.CardlightMode{
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
 
 .verseBlock {
   display: flex;
@@ -47,10 +56,17 @@
   font-size: 2.5rem; /* 30px */
   line-height: 1.75;
   font-family: 'Scheherazade New', serif;
-  color: #1f2937; /* gray-800 */
+  /* color: #1f2937;  */
   margin-bottom: 1rem;
 }
 
+.ArabicDarkMode{
+  color: white; /* slate-800 */
+}
+
+.ArabicLightMode {
+  color: #1f2937; /* slate-800 */
+}
 .separator {
   width: 4rem;
   height: 2px;
@@ -59,17 +75,32 @@
 }
 
 .translationBox {
-  background-color: rgba(236, 253, 245, 0.5); 
+  /* background-color: rgba(236, 253, 245, 0.5);  */
   /* padding: 1.5rem; */
   border-radius: 0.5rem;
+}
+
+.TranslationDarkMode{
+  background-color: black; /* slate-800 */
+}
+
+.TranslationLightMode{
+  background-color: rgba(236, 253, 245, 0.5); /* emerald-50 */
 }
 
 .translationText {
   font-size: 1.1rem; /* 18px */
   line-height: 1.75;
-  color: #374151; /* gray-700 */
+  /* color: #374151;  */
   /* text-align: center; */
   font-style: italic;
+}
+
+.TextLightMode {
+  color: #374151; /* black */
+}
+.TextDarkMode {
+  color: white; /* slate-800 */
 }
 
 
@@ -112,9 +143,7 @@
 
 /* between */
 
-.trans{
-  /* border: 2px solid red; */
-}
+
 
 .trans p{
   position: relative;
@@ -129,6 +158,7 @@
   border-radius: 4px;
   font-size: 0.8rem;
 }
+
 
 
 

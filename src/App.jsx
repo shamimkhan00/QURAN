@@ -16,6 +16,15 @@ import EnTrans from './Quran/EnTrans.json';
 
 function App() {
 
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const storedValue = localStorage.getItem('isDarkMode');
+    return storedValue ? JSON.parse(storedValue) : false;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
+  }, [isDarkMode]);
+
 
   //useState
   const [surah, setSurah] = useState(() => {
@@ -149,8 +158,10 @@ function App() {
     fetchTafsir();
   }, [surah, verse, scripts, language]);
 
-
-
+  useEffect(() => {
+    document.body.classList.remove("light-mode", "dark-mode");
+    document.body.classList.add(isDarkMode ? "dark-mode" : "light-mode");
+  }, [isDarkMode]);
 
 
 
@@ -172,7 +183,7 @@ function App() {
         <meta property="og:type" content="website" />
         <link rel="alternate" href="https://www.path-to-quran.com/articles/learn-quran" />
         <link rel="alternate" href="https://www.path-to-quran.com/articles/read-quran" />
-        
+
       </Helmet>
       <div>
         {/* {isMobile ? (
@@ -207,8 +218,11 @@ function App() {
           verse={verse}
           setSurah={setSurah}
           setVerse={setVerse}
+
+          isDarkMode={isDarkMode}
+          setIsDarkMode={setIsDarkMode}
         />
-        <MainContent currentVerseData={currentVerseData} surah={surah} verse={verse} onEnded={incrementCount} setIsOpen={setIsOpen} />
+        <MainContent currentVerseData={currentVerseData} surah={surah} verse={verse} onEnded={incrementCount} setIsOpen={setIsOpen} isDarkMode={isDarkMode}/>
       </div>
       <Footer></Footer>
     </>

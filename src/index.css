@@ -2,6 +2,13 @@ html{
     scrollbar-width: none;
     
 }
-body{
-    background-color: #e8fffc;
+
+body.light-mode {
+  background-color: #e8fffc;
+  color: #000000;
+}
+
+body.dark-mode {
+  background-color: #1e1e1e;
+  color: #ffffff;
 }

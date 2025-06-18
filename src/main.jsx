@@ -56,9 +56,3 @@ root.render(
   </React.StrictMode>
 );
 
-//home page refresh
-//logo refresh
-
-
-//https://quranapi.pages.dev/getting-started/get-a-verse
-//https://github.com/spa5k/tafsir_api

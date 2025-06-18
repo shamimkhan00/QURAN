@@ -5,7 +5,7 @@ import { signOut } from 'firebase/auth/cordova';
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 
-const Sidebar = ({ setLanguage, setScript, isOpen, setIsOpen }) => {
+const Sidebar = ({ setLanguage, setScript, isOpen, setIsOpen , isDarkMode, setIsDarkMode }) => {
   const navigate = useNavigate();
 
   const [showDropdown, setShowDropdown] = useState(false);
@@ -58,6 +58,11 @@ const Sidebar = ({ setLanguage, setScript, isOpen, setIsOpen }) => {
     window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSc_WNXwbOfTwykZZakYStpfU-m6hwnTYn8O9QxwmfeXRTiwog/viewform?usp=header";
   }
 
+  const handleDarkMode = () => {
+    setIsDarkMode(prev => !prev);
+    setIsOpen(false);
+  }
+
   return (
     <>
       <button className={styles.hamburger} onClick={toggleSidebar}>
@@ -107,6 +112,7 @@ const Sidebar = ({ setLanguage, setScript, isOpen, setIsOpen }) => {
               </motion.ul>
             )}
           </AnimatePresence>
+          <li onClick={handleDarkMode} className={styles.list}>{isDarkMode?('Light Mode'):('Dark Mode')}</li>
           <li onClick={handleAboutUs} className={styles.list}>About Us</li>
           <li onClick={handleFeedback} className={styles.list}>Feedback</li>
           <li onClick={handleLogout} className={styles.logout}>Logout</li>
